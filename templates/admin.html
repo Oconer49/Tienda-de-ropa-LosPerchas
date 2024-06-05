@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administrador</title>
+    <link rel="stylesheet" href="/static/estilosadmin.css">
+    <link rel="icon" href="/static/imagenes/Logo.png">
+</head>
+<body>
+    <h1>Panel de Administrador</h1>
+
+    <div class="cards">
+
+        <form class="card descuento" action="/gestionar_descuentos" method="get">
+            <p class="tip">Gestionar descuento</p>
+            <input type="submit" value="Ir">
+        </form>
+
+        <form class="card stock" action="/ver_stock" method="get">
+            <p class="tip">Ver stock <br> </p>
+            <input type="submit" value="Ir">
+        </form>
+
+        <form class="card actualizar" action="/actualizar_mercancia" method="get">
+            <p class="tip">Actualizar Mercancía</p>
+            <input type="submit" value="Ir">
+        </form>
+
+        <form class="card gestionar" action="/gestionar_mercancia" method="get">
+            <p class="tip">Gestionar Mercancia</p>
+            <input type="submit" value="Ir">
+        </form>
+    </div>
+</body>
+</html>

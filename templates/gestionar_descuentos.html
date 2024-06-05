@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Descuentos</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="/static/imagenes/Logo.png">
+</head>
+<body>
+    <h1>Gestionar Descuentos</h1>
+    <form action="/gestionar_descuentos_post" method="post">
+        <label for="codigo_producto">Código del Producto</label>
+        <input type="text" id="codigo_producto" name="codigo_producto" required><br>
+
+        <label for="porcentaje_descuento">Porcentaje de Descuento</label>
+        <input type="number" id="porcentaje_descuento" name="porcentaje_descuento" required><br>
+
+        <label for="accion">Acción</label>
+        <select id="accion" name="accion">
+            <option value="aplicar">Aplicar Descuento</option>
+            <option value="quitar">Quitar Descuento</option>
+        </select><br>
+
+        <input type="submit" value="Gestionar">
+    </form>
+</body>
+</html>

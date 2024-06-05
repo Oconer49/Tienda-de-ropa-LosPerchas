@@ -1,0 +1,139 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('./imagenes/fondo.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: contain;
+    display: flex;
+    zoom: 0.7;
+    min-height: 100vh;
+    margin: 0;
+}
+.logo  {
+    position: absolute;
+    display: block;
+    margin-left: 300px;
+}
+
+
+.wrapper {
+    position: absolute;
+    --input-focus-color: #2d8cf0;
+    --font-color: #323232;
+    --font-color-sub: #666;
+    --bg-color: #fff;
+    --bg-color-alt: #666;
+    --main-color: #323232;
+    margin-inline-start: 58em;
+    margin-block-start: 140px;
+    
+}
+
+
+.flip-card__front {
+    padding: 20px;
+    margin-inline-start: -100px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    backface-visibility: hidden;
+    background: lightgray;
+    border-radius: 20px;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    width: 15em;
+    height: 45em;
+}
+
+.flip-card__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 43em;
+    padding-bottom: 3em;
+}
+.title {
+    margin: 20px 0 20px 0;
+    font-size: 25px;
+    font-weight: 900;
+    text-align: center;
+    color: var(--main-color)
+}
+.flip-card__inner {
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    width: calc(100% - 20px); 
+    margin-left: 10px;
+}
+
+.avatars {
+    display: flex;
+    position:absolute;
+    align-items: center;
+    transform: translate(100px, 0);
+    margin-block-start: 700px;
+}
+.avatar-img:nth-child(2) {
+    transform: translate(-100px, 0);
+
+}
+.avatar-img:nth-child(3) {
+    transform: translate(-200px, 0);
+}
+.avatar-img {
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: solid 2px #fff;
+    transition: all 0.3s;
+}
+.avatar-img:hover:is(.avatar-img:nth-child(1), .avatar-img:nth-child(2)) {
+    margin-right: 120px;
+}
+.avatar-img:hover {
+    box-shadow: 0 0 5px 5px pink;
+}
+
+ input[type=submit]  {
+    --bg: #ff8e8e;
+    --hover-bg: #ff6e6e;
+    --hover-text: #000;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid var(--bg);
+    border-radius: .4px;
+    padding: .8em 2em;
+    background: var(--bg);
+    transition: .2s;
+    height: 50px;
+  }
+  
+  input[type=submit]:hover {
+    color: var(--hover-text);
+    transform: translate(0, .25rem);
+    background: var(--hover-bg);
+    box-shadow: .25rem .25rem var(--bg);
+  }
+  
+  input[type=submit]:active {
+    transform: translate(0);
+    box-shadow: none;
+  }
+  input {
+    font-size: 18px;
+    height: 20px;
+    width: 10em;
+  }
+  .u-section-1 .u-sheet-1 {
+    min-height: 400px;
+  }
+
+  select {
+    font-size: 18px;
+    height: 24px;
+    width: 10em;
+  }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionar Mercancía</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="/static/imagenes/Logo.png">
+</head>
+<body>
+    <h1>Gestionar Mercancía</h1>
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <h2>Agregar Mercancía</h2>
+            <form action="/agregar_mercancia_post" method="post">
+                <label for="nombre_producto">Nombre del Producto</label>
+                <input type="text" id="nombre_producto" name="nombre_producto" required><br>
+
+                <label for="descripcion_producto">Descripción del Producto</label>
+                <input type="text" id="descripcion_producto" name="descripcion_producto" required><br>
+
+                <label for="precio_producto">Precio del Producto</label>
+                <input type="number" id="precio_producto" name="precio_producto" required><br>
+
+                <label for="tipo_producto">Tipo del Producto</label>
+                <input type="text" id="tipo_producto" name="tipo_producto" required><br>
+
+                <label for="talla_producto">Talla del Producto</label>
+                <input type="text" id="talla_producto" name="talla_producto" required><br>
+
+                <label for="color_producto">Color del Producto</label>
+                <input type="text" id="color_producto" name="color_producto" required><br>
+
+                <label for="cantidad_producto">Cantidad del Producto</label>
+                <input type="number" id="cantidad_producto" name="cantidad_producto" required><br>
+                
+                <input type="submit" value="Agregar Mercancía">
+            </form>
+        </div>
+
+        <div>
+            <h2>Eliminar Mercancía</h2>
+            <form action="/eliminar_mercancia_post" method="post">
+                <label for="codigo_producto">Código del Producto</label>
+                <input type="text" id="codigo_producto" name="codigo_producto" required><br>
+
+                <input type="submit" value="Eliminar Mercancía">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

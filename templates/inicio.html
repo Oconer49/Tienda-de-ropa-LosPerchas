@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tienda de Ropa</title>
+    <link rel="stylesheet" href="/static/estilosinicio.css">
+    <link rel="icon" href="/static/imagenes/Logo.png">
+</head>
+<body>
+    <img src="/static/imagenes/Logo.png" width="300" height="300" style="display: block; margin-left: auto; margin-right: auto;">
+    
+
+    <div class="overlay"></div>
+        <div class="menu" id="menu">
+            <div class="menu-header">
+                <img src="/static/imagenes/Logo.png" style="width: 100%; height: 100%; object-fit: contain;">
+                <button class="close-btn" id="close-btn">×</button>
+            </div>
+            <ul class="menu-list">
+                <li><a href="/inicio">Inicio</a></li>
+                <li><a href="/carrito">Carrito</a></li>
+                {% if current_user.is_authenticated %}
+                    {% if current_user.es_admin %}
+                        <li><a href="/admin">Administrador</a></li>
+                    {% endif %}
+                    <li><a href="/logout">Cerrar Sesión</a></li>
+                {% else %}
+                    <li><a href="/login">Iniciar Sesión</a></li>
+                    <li><a href="/register">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <button class="open-btn" id="open-btn">☰</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const openBtn = document.getElementById('open-btn');
+            const closeBtn = document.getElementById('close-btn');
+            const menu = document.getElementById('menu');
+            const overlay = document.querySelector('.overlay');
+
+            openBtn.addEventListener('click', () => {
+                menu.classList.add('open');
+                overlay.classList.add('show');
+            });
+            closeBtn.addEventListener('click', () => {
+                menu.classList.remove('open');
+                overlay.classList.remove('show');
+            });
+
+            overlay.addEventListener('click', () => {
+                menu.classList.remove('open');
+                overlay.classList.remove('show');
+            });
+            openBtn.addEventListener('click', () => {
+            menu.classList.add('open');
+            overlay.classList.add('show');
+            openBtn.style.display = 'none'; 
+            });
+            closeBtn.addEventListener('click', () => {
+            menu.classList.remove('open');
+            overlay.classList.remove('show');
+            openBtn.style.display = 'block'; 
+            });
+
+            overlay.addEventListener('click', () => {
+            menu.classList.remove('open');
+            overlay.classList.remove('show');
+            openBtn.style.display = 'block'; 
+            });
+
+
+        });
+    </script>
+
+        <!-- Add a search bar 
+        <div class="barra_busqueda">
+            <form action="/buscar" method="get">
+                <input type="text" name="q" placeholder="Buscar...">
+            </form>
+        </div>-->
+        <div class="carrusel">
+            {% for producto in productos %}
+            <div class="card">
+                <img src="/static/imagenes/Daniel.jpg" alt="{{ producto[0] }}" width="120em">
+                <p>{{ producto[0] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

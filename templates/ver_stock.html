@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ver Stock</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon" href="/static/imagenes/Logo.png">
+    <style>
+        table {
+            width: 40%;
+            border-collapse: collapse;
+            height: 30%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Stock de Productos</h1>
+    <table>
+        <tr>
+            <th>Código del Producto</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Talla</th>
+            <th>Color</th>
+        </tr>
+        {% for producto in stock %}
+        <tr>
+            <td>{{ producto[0] }}</td>
+            <td>{{ producto[1] }}</td>
+            <td>{{ producto[2] }}</td>
+            <td>{{ producto[3] }}</td>
+            <td>{{ producto[4] }}</td>
+            <td>{{ producto[5] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

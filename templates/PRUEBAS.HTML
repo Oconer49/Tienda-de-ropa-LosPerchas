@@ -1,0 +1,607 @@
+//////// trjeta
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/imagenes/Logo.png">
+    <title>Card</title>
+    <style>
+        .card {
+            --bg-card: #27272a;
+            --primary: #6d28d9;
+            --primary-800: #4c1d95;
+            --primary-shadow: #2e1065;
+            --light: #d9d9d9;
+            --zinc-800: #18181b;
+            --bg-linear: linear-gradient(0deg, var(--primary) 50%, var(--light) 125%);
+        
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1rem;
+            width: 14rem;
+            background-color: var(--bg-card);
+            border-radius: 1rem;
+        }
+        .image_container {
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            z-index: 5;
+            width: 100%;
+            height: 8rem;
+            background-color: var(--primary-800);
+            border-radius: 0.5rem;
+        }
+        .image_container img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: auto;
+        }
+        .title {
+            overflow: hidden;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--light);
+            text-transform: capitalize;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .size {
+            font-size: 0.75rem;
+            color: var(--light);
+        }
+        .list-size {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.25rem;
+        }
+        .list-size .item-list {
+            list-style: none;
+        }
+        .list-size .item-list-button {
+            cursor: pointer;
+            padding: 0.5rem;
+            background-color: var(--zinc-800);
+            font-size: 0.75rem;
+            color: var(--light);
+            border: 2px solid var(--zinc-800);
+            border-radius: 0.25rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .list-size .item-list-button:hover {
+            border: 2px solid var(--light);
+        }
+        .list-size .item-list-button:focus {
+            background-color: var(--primary);
+            border: 2px solid var(--primary-shadow);
+            box-shadow: inset 0px 1px 4px var(--primary-shadow);
+        }
+        .action {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+        .cart-button {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.5rem;
+            width: 100%;
+            background-image: var(--bg-linear);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--light);
+            white-space: nowrap;
+            border: 2px solid hsla(262, 83%, 58%, 0.5);
+            border-radius: 0.5rem;
+            box-shadow: inset 0 0 0.25rem 1px var(--light);
+        }
+        .cart-button .cart-icon {
+            width: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="image_container">
+            <img src="/pit.jpg" alt="Tu Imagen">
+        </div>
+        <div class="title">
+            <span>New brand name</span>
+        </div>
+        <div class="size">
+            <span>Size</span>
+            <ul class="list-size">
+                <li class="item-list"><button class="item-list-button">37</button></li>
+                <li class="item-list"><button class="item-list-button">38</button></li>
+                <li class="item-list"><button class="item-list-button">39</button></li>
+                <li class="item-list"><button class="item-list-button">40</button></li>
+                <li class="item-list"><button class="item-list-button">41</button></li>
+            </ul>
+        </div>
+        <div class="action">
+            <div class="price">
+                <span>$299</span>
+            </div>
+            <button class="cart-button">
+                <svg class="cart-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+                <span>Add to cart</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+
+
+//////////
+menu compra 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .product-images {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .product-images img {
+            width: calc(33.33% - 10px);
+            height: auto;
+            object-fit: cover;
+        }
+
+        .product-container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .product-details {
+            margin-left: 20px;
+            flex: 1;
+        }
+
+        .product-details h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .product-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-details ul li {
+            margin-bottom: 10px;
+        }
+
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+
+        .warning span {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 24px;
+            color: #333;
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+
+        form button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="product-container">
+        <div class="product-image">
+            <img src="/pit2.jpg" alt="Camiseta Casca Guts - Berserk" width="200">
+            <img src="/pit.jpg" alt="Camiseta Casca Guts - Berserk" width="200">
+        </div>
+        <div class="product-details">
+            <h1>Camiseta Guts – Berserk</h1>
+            <ul>
+                <li><strong>Personajes:</strong>Guts</li>
+                <li><strong>Serie:</strong> Berserk</li>
+                <li><strong>Especificaciones:</strong> Algodón </li>
+                <li><strong>Impresión:</strong> </li>
+            </ul>
+            <p class="warning">
+            <p class="price">$55.000 – $75.000</p>
+            <form>
+                <label for="style">Estilo</label>
+                <select id="style" name="style">
+                    <option value="">Elige una opción</option>
+                </select>
+                <label for="size">Tallas</label>
+                <select id="size" name="size">
+                    <option value="">Elige una opción</option>
+                </select>
+                <button type="submit">Añadir al carrito</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+/////////
+menu desplegable
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Off-Canvas Menu</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 5;
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #111;
+            color: #fff;
+            transition: left 0.3s ease;
+            z-index: 10;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .menu-list {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            flex-grow: 1;
+        }
+
+        .menu-list li {
+            margin: 1rem 0;
+        }
+
+        .menu-list a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        .open-btn {
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: #111;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .menu.open {
+            left: 0;
+        }
+
+        .overlay.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="menu" id="menu">
+        <div class="menu-header">
+            <span class="logo">logo</span>
+            <button class="close-btn" id="close-btn">&times;</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="#">Carrito</a></li>
+            <li><a href="#">Animes</a></li>
+            <li><a href="#">Mangas</a></li>
+        </ul>
+    </div>
+    <button class="open-btn" id="open-btn">&#9776;</button>
+<!--java-->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const openBtn = document.getElementById('open-btn');
+            const closeBtn = document.getElementById('close-btn');
+            const menu = document.getElementById('menu');
+            const overlay = document.querySelector('.overlay');
+
+            openBtn.addEventListener('click', () => {
+                menu.classList.add('open');
+                overlay.classList.add('show');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menu.classList.remove('open');
+                overlay.classList.remove('show');
+            });
+
+            overlay.addEventListener('click', () => {
+                menu.classList.remove('open');
+                overlay.classList.remove('show');
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+////////
+insta css 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallax Effect</title>
+    <style>
+        body {
+            font-family: "Poppins", "Euclid Circular A", sans-serif;
+            margin: 0;
+            background: #1a1822;
+        }
+
+        main {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            perspective: 2px;
+        }
+
+        section {
+            transform-style: preserve-3d;
+            position: relative;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .no-parallax {
+            background-color: #1a1822;
+            z-index: 999;
+        }
+
+        .parallax {
+            height: 50vh;
+        }
+
+        .parallax::after {
+            content: " ";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateZ(-1px) scale(1.5);
+            background-size: 100%;
+            z-index: -1;
+        }
+
+        .bg::after {
+            background: url("bg.png");
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="no-parallax">
+        </section>
+        <section class="parallax bg">
+        </section>
+        <section class="no-parallax">
+        </section>
+        <section class="parallax bg">
+        </section>
+        <section class="no-parallax">
+        </section>
+    </main>
+</body>
+</html>
+
+///////
+tarjetas admin
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cards with Hover Effect</title>
+    <style>
+        .cards {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+        }
+
+        .cards .red {
+            background-color: #007e9e;
+        }
+
+        .cards .blue {
+            background-color: #0062ff;
+        }
+
+        .cards .green {
+            background-color: #18cd5e;
+        }
+
+        .cards .card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            height: 100px;
+            width: 100px;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: 400ms;
+        }
+
+        .cards .card p.tip {
+            font-size: 1em;
+            font-weight: 700;
+        }
+
+        .cards .card p.second-text {
+            font-size: .7em;
+        }
+
+        .cards .card:hover {
+            transform: scale(1.2, 1.2);
+        }
+
+        .cards:hover > .card:not(:hover) {
+            filter: blur(10px);
+            transform: scale(0.9, 0.9);
+        }
+    </style>
+</head>
+<body>
+    <div class="cards">
+        <div class="card red">
+            <p class="tip">Añadir producto</p>
+            <p class="second-text">Lorem Ipsum</p>
+        </div>
+        <div class="card blue">
+            <p class="tip">Eliminar producto</p>
+            <p class="second-text">Lorem Ipsum</p>
+        </div>
+        <div class="card green">
+            <p class="tip">Aplicar descuento</p>
+            <p class="second-text">Lorem Ipsum</p>
+        </div>
+        <div class="card green">
+            <p class="tip">Quitr aplicar descuento</p>
+            <p class="second-text">Lorem Ipsum</p>
+        </div>
+        <div class="card green">
+            <p class="tip">Ver stock</p>
+            <p class="second-text">Lorem Ipsum</p>
+        </div>
+    </div>
+</body>
+</html>

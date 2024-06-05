@@ -1,0 +1,217 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('./imagenes/fondo.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    zoom: 0.7;
+    min-height: 100vh;
+    margin: 0;
+}
+
+nav {
+    position: absolute;
+    background-color: #333;
+    overflow: hidden;
+    padding: 100;
+    height: 60px;
+    font-size: 20px;
+    width: 28em;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding-top: 0;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+form {
+    position: absolute;
+
+}
+
+.navbar {
+    overflow: hidden;
+    height: 45px;
+    position: absolute;
+    left: 40%;
+    top: 15%;
+    width: 35em;
+}
+
+.barra_busqueda {
+    height: 45px;
+    position: absolute;
+    left: 46%;
+    top: 25%;
+}
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    background-color: white;
+    background-image: url('./imagenes/lupa.png');
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    width: 20em;
+}
+
+.card {
+    align-items: center;
+    justify-content: center;
+    background: #353434;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 200px;
+    min-height: 200px;
+    text-align: center;
+    scroll-snap-align: start;
+    flex-direction: column;
+}
+.card img {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.card p {
+    padding-top: 30px;
+}
+
+.card:nth-child(even) {
+    background: #747373;
+}
+
+.carrusel {
+    display: flex;
+    gap: 40px;
+    padding: 10px;
+    max-width: 40em;
+    overflow-x: scroll;
+    scroll-snap-stop: x mandatory;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    height: 35em;
+}
+
+.carrusel::-webkit-scrollbar {
+    height: 10px;
+}
+
+.carrusel::-webkit-scrollbar-thumb {
+    background: #747373;
+    border-radius: 10px;
+}
+
+.carrusel::-webkit-scrollbar-track {
+    background: #e7e4e4;
+    border-radius: 10px;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: -290px;
+    width: 250px;
+    height: 100%;
+    background-color: #111;
+    color: #fff;
+    transition: left 0.3s ease;
+    z-index: 10;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.7rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    left: 9em;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    flex-grow: 1;
+}
+
+.menu-list li {
+    margin: 1rem 0;
+}
+
+.menu-list a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.open-btn {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: #111;
+    position: fixed;
+    top: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    left: 30px;
+}
+
+.menu.open {
+    left: 0;
+}
+
+.overlay.show {
+    display: block;
+}
