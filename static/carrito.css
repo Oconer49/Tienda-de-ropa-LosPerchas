@@ -6,6 +6,8 @@ body {
     background-size: cover;
     background-color: contain;
     display: flex;
+    justify-content: center;
+
     zoom: 0.7;
     min-height: 100vh;
     margin: 0;
@@ -29,6 +31,7 @@ body {
     border-radius: 1rem;
     top: 300px;
     left: 700px;
+    align-items: center;
 
 }
 .image_container {
@@ -151,3 +154,13 @@ input[type=submit]  {
     height: 20px;
     width: 10em;
   }
+
+  h1 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    left: 50%;
+}
+.comprar, .eliminar {
+    top: 70%;
+}

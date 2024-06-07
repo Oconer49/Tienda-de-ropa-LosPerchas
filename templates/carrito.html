@@ -9,13 +9,7 @@
     <body>
         <h1>Carrito</h1>
 
-        <form action="/eliminar_producto" method="post">
-            <input type="submit" value="Eliminar Producto">
-        </form>
-
-        <form action="/comprar" method="post">
-            <input type="submit" value="Comprar">
-        </form>
+        
         <link rel="stylesheet" href="./styles.css">
         <div class="card">
             <div class="image_container">
@@ -45,6 +39,13 @@
                     <span>Add to cart</span>
             </button>
         </div>
+        <form action="/eliminar_producto" method="post" class="eliminar">
+            <input type="submit" value="Eliminar Producto">
+        </form>
+
+        <form action="/comprar" method="post" class="comprar">
+            <input type="submit" value="Comprar">
+        </form>
     </div>
 </body>
 </html>

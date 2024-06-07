@@ -1,0 +1,347 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://i.postimg.cc/X797m23Y/fondo.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: flex;
+    zoom: 0.7;
+    min-height: 100vh;
+    margin: 0;
+}
+
+nav {
+    position: absolute;
+    background-color: #333;
+    overflow: hidden;
+    padding: 100;
+    height: 60px;
+    font-size: 20px;
+    width: 28em;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding-top: 0;
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: #111;
+}
+
+form {
+    position: absolute;
+
+}
+
+.navbar {
+    overflow: hidden;
+    height: 45px;
+    position: absolute;
+    left: 40%;
+    top: 15%;
+    width: 35em;
+}
+
+.barra_busqueda {
+    height: 45px;
+    position: absolute;
+    left: 46%;
+    top: 25%;
+}
+
+input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 18px;
+    background-color: white;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    width: 20em;
+}
+
+.card {
+    align-items: center;
+    justify-content: center;
+    background: #353434;
+    border-radius: 10px;
+    padding: 20px;
+    min-width: 200px;
+    min-height: 180px;
+    text-align: center;
+    scroll-snap-align: start;
+    flex-direction: column;
+    height: 27em;
+}
+
+
+.carrusel {
+    display: flex;
+    gap: 40px;
+    padding: 10px;
+    max-width: 40em;
+    overflow-x: scroll;
+    scroll-snap-stop: x mandatory;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+    height: 30em;
+}
+
+.carrusel::-webkit-scrollbar {
+    height: 10px;
+    top: 30%;
+}
+
+.carrusel::-webkit-scrollbar-thumb {
+    background: #747373;
+    border-radius: 10px;
+}
+
+.carrusel::-webkit-scrollbar-track {
+    background: #e7e4e4;
+    border-radius: 10px;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    left: -290px;
+    width: 250px;
+    height: 100%;
+    background-color: #111;
+    color: #fff;
+    transition: left 0.3s ease;
+    z-index: 10;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.7rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    left: 9em;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    flex-grow: 1;
+}
+
+.menu-list li {
+    margin: 1rem 0;
+}
+
+.menu-list a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.open-btn {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: #111;
+    position: fixed;
+    top: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    left: 30px;
+}
+
+.menu.open {
+    left: 0;
+}
+
+.overlay.show {
+    display: block;
+}
+
+.card {
+    --bg-card: #27272a;
+    --primary: #6d28d9;
+    --primary-800: #4c1d95;
+    --primary-shadow: #2e1065;
+    --light: #d9d9d9;
+    --zinc-800: #18181b;
+    --bg-linear: linear-gradient(0deg, var(--primary) 50%, var(--light) 125%);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    width: 14rem;
+    background-color: var(--bg-card);
+    border-radius: 1rem;
+}
+.image_container {
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 8rem;
+    background-color: var(--primary-800);
+    border-radius: 0.5rem;
+}
+.image_container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+}
+.title {
+    overflow: hidden;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--light);
+    text-transform: capitalize;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.size {
+    color: var(--light);
+}
+.list-size {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+    left: 302px;
+    padding: 0%;
+}
+.list-size .item-list {
+    list-style: none;
+}
+.list-size .item-list-button {
+    cursor: pointer;
+    padding: 0.5rem;
+    background-color: var(--zinc-800);
+    font-size: 0.75rem;
+    color: var(--light);
+    border: 2px solid var(--zinc-800);
+    border-radius: 0.25rem;
+    transition: all 0.3s ease-in-out;
+}
+.action {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.price {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--light);
+    left: 70px;
+}
+
+.cart-button {
+    --color: #560bad;
+    font-family: inherit;
+    display: inline-block;
+    width: 7em;
+    height: 2.6em;
+    line-height: 2.5em;
+    margin: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--color);
+    transition: color .5s;
+    z-index: 1;
+    font-size: 17px;
+    border-radius: 6px;
+    font-weight: 500;
+    color: var(--color);
+    top: 60px;
+   }
+   
+   .cart-button:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--color);
+    height: 150px;
+    width: 200px;
+    border-radius: 50%;
+   }
+   
+   .cart-button:hover {
+    color: #fff;
+   }
+   
+   .cart-button:before {
+    top: 100%;
+    left: 100%;
+    transition: all .7s;
+   }
+   
+   .cart-button:hover:before {
+    top: -30px;
+    left: -30px;
+   }
+   
+   .cart-button:active:before {
+    background: #3a0ca3;
+   }
+   .cart-button span {
+    position: relative;
+   }
+   
+   .cart-button .cart-icon {
+    position: absolute;
+    width: 1.8rem;
+    left: 10px;
+    top: 5.6px;
+    }
