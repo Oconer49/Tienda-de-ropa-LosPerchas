@@ -1,0 +1,191 @@
+<div class="overlay"></div>
+    <div class="menu" id="menu">
+        <div class="menu-header">
+            <img src="https://i.postimg.cc/Y0hLQQmm/Logo.png" style="width: 100%; height: 100%; object-fit: contain;">
+            <button class="close-btn" id="close-btn">×</button>
+        </div>
+        <ul class="menu-list">
+            <li><a href="/inicio">Inicio</a></li>
+            {% if current_user.is_authenticated %}
+                {% if current_user.es_admin %}
+                    <li><a href="/admin">Administrador</a></li>
+                {% else %}
+                <li><a href="/carrito">Carrito</a></li>
+                {% endif %}
+            <li><a href="/logout">Cerrar Sesión</a></li>
+            {% else %}
+                <li><a href="/login">Iniciar Sesión</a></li>
+                <li><a href="/register">Registrarse</a></li>
+            {% endif %}
+        </ul>
+        </div>
+        </div>
+        <button class="open-btn" id="open-btn">☰</button>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://i.postimg.cc/X797m23Y/fondo.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            zoom: 0.7;
+        }
+        nav {
+            position: absolute;
+            background-color: #333;
+            overflow: hidden;
+            padding: 100;
+            height: 60px;
+            font-size: 20px;
+            width: 28em;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding-top: 0;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        nav li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        nav li a:hover {
+            background-color: #111;
+        }
+
+        form {
+            position: absolute;
+
+        }
+
+        .navbar {
+            overflow: hidden;
+            height: 45px;
+            position: absolute;
+            left: 40%;
+            top: 15%;
+            width: 35em;
+        }
+
+        .menu {
+    position: fixed;
+    top: 0;
+    left: -290px;
+    width: 250px;
+    height: 100%;
+    background-color: #111;
+    color: #fff;
+    transition: left 0.3s ease;
+    z-index: 10;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.7rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    left: 9em;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+    flex-grow: 1;
+}
+
+.menu-list li {
+    margin: 1rem 0;
+}
+
+.menu-list a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.open-btn {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: #111;
+    position: fixed;
+    top: 1rem;
+    cursor: pointer;
+    z-index: 10;
+    left: 30px;
+}
+
+.menu.open {
+    left: 0;
+}
+
+.overlay.show {
+    display: block;
+}
+        </style>
+
+        <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                    const openBtn = document.getElementById('open-btn');
+                    const closeBtn = document.getElementById('close-btn');
+                    const menu = document.getElementById('menu');
+                    const overlay = document.querySelector('.overlay');
+
+                    openBtn.addEventListener('click', () => {
+                        menu.classList.add('open');
+                        overlay.classList.add('show');
+                    });
+                    closeBtn.addEventListener('click', () => {
+                        menu.classList.remove('open');
+                        overlay.classList.remove('show');
+                    });
+
+                    overlay.addEventListener('click', () => {
+                        menu.classList.remove('open');
+                        overlay.classList.remove('show');
+                    });
+                    openBtn.addEventListener('click', () => {
+                    menu.classList.add('open');
+                    overlay.classList.add('show');
+                    openBtn.style.display = 'none'; 
+                    });
+                    closeBtn.addEventListener('click', () => {
+                    menu.classList.remove('open');
+                    overlay.classList.remove('show');
+                    openBtn.style.display = 'block'; 
+                    });
+
+                    overlay.addEventListener('click', () => {
+                    menu.classList.remove('open');
+                    overlay.classList.remove('show');
+                    openBtn.style.display = 'block'; 
+                    });
+                });
+            </script>

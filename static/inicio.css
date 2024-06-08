@@ -1,68 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('https://i.postimg.cc/X797m23Y/fondo.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    display: flex;
-    zoom: 0.7;
-    min-height: 100vh;
-    margin: 0;
-}
-
-nav {
-    position: absolute;
-    background-color: #333;
-    overflow: hidden;
-    padding: 100;
-    height: 60px;
-    font-size: 20px;
-    width: 28em;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding-top: 0;
-}
-
-nav li {
-    float: left;
-}
-
-nav li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-nav li a:hover {
-    background-color: #111;
-}
-
-form {
-    position: absolute;
-
-}
-
-.navbar {
-    overflow: hidden;
-    height: 45px;
-    position: absolute;
-    left: 40%;
-    top: 15%;
-    width: 35em;
-}
-
-.barra_busqueda {
-    height: 45px;
-    position: absolute;
-    left: 46%;
-    top: 25%;
-}
-
 input[type=text] {
     width: 130px;
     box-sizing: border-box;
@@ -131,79 +66,6 @@ input[type=text] {
     z-index: 5;
 }
 
-.menu {
-    position: fixed;
-    top: 0;
-    left: -290px;
-    width: 250px;
-    height: 100%;
-    background-color: #111;
-    color: #fff;
-    transition: left 0.3s ease;
-    z-index: 10;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.menu-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1.7rem;
-    cursor: pointer;
-    position: absolute;
-    top: 1rem;
-    left: 9em;
-}
-
-.menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 2rem 0;
-    flex-grow: 1;
-}
-
-.menu-list li {
-    margin: 1rem 0;
-}
-
-.menu-list a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-
-.open-btn {
-    font-size: 1.5rem;
-    background: none;
-    border: none;
-    color: #111;
-    position: fixed;
-    top: 1rem;
-    cursor: pointer;
-    z-index: 10;
-    left: 30px;
-}
-
-.menu.open {
-    left: 0;
-}
-
-.overlay.show {
-    display: block;
-}
 
 .card {
     --bg-card: #27272a;
@@ -228,8 +90,8 @@ input[type=text] {
     cursor: pointer;
     position: relative;
     z-index: 5;
-    width: 100%;
-    height: 8rem;
+    width: 80%;
+    height: 40%;
     background-color: var(--primary-800);
     border-radius: 0.5rem;
 }
@@ -305,6 +167,7 @@ input[type=text] {
     font-weight: 500;
     color: var(--color);
     top: 60px;
+    right: 80px;
    }
    
    .cart-button:before {

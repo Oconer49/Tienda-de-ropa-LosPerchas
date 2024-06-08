@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="/static/descripcion.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+</head>
+<body>
+    <div class="container">
+        <div class="product-gallery">
+            <div class="product-gallery">
+                <img src="https://i.postimg.cc/fTXsZVzc/imagen-2024-06-07-171640875.png" alt="Imagen del producto" class="imagen_normal">
+                <img src="https://i.postimg.cc/fTXsZVzc/imagen-2024-06-07-171640875.png" alt="Imagen del producto" class="hover-image">
+            </div>
+            <div class="thumbnails">
+            </div>
+        </div>
+        <div class="product-details">
+            <h1>{{ producto[1] }}</h1>
+            <p>{{ producto[2] }}</p>
+            <div class="quantity-input">
+                <button type="button" onclick="decrementarCantidad()">-</button>
+                <input type="number" id="cantidad_producto" name="cantidad_producto" required min="0" value="0">
+                <button type="button" onclick="incrementarCantidad()">+</button>
+            </div>
+            <!--<div class="actions">
+                <button class="buy-now">Comprar ahora</button>
+                <button class="add-to-cart">Agregar al carrito</button>
+            </div>-->
+            <p>Vendido por <strong>Los perchas</strong></p>
+            <p><strong>+25 ventas</strong></p>
+            <p>Devolución gratis. Tienes 30 días desde que lo recibes.</p>
+            <p>Compra Protegida, recibe el producto que esperabas o te devolvemos tu dinero.</p>
+        </div>
+    </div>
+    <div class="comments-section">
+        <h2>Comentarios</h2>
+        <form id="comment-form" action="/comentar/{{ producto[0] }}" method="post">
+            <label for="comment">Deja un comentario:</label>
+            <textarea id="comment" name="comment" rows="4" placeholder="Escribe tu comentario aquí..."></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+        <div class="comments-list">
+            <h3>Comentarios anteriores:</h3>
+            {% for comentario in comentarios %}
+            <div class="comment">
+                <p><strong>{{ comentario.Correo_Usuario }}:</strong> {{ comentario.Comentario }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script>
+         function incrementarCantidad() {
+            var cantidadInput = document.getElementById('cantidad_producto');
+            cantidadInput.value = parseInt(cantidadInput.value) + 1;
+        }
+
+        function decrementarCantidad() {
+            var cantidadInput = document.getElementById('cantidad_producto');
+            if (parseInt(cantidadInput.value) > 0) {
+                cantidadInput.value = parseInt(cantidadInput.value) - 1;
+            }
+        }
+
+        document.getElementById('comment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const commentText = document.getElementById('comment').value;
+            if (commentText.trim() !== '') {
+                const commentList = document.querySelector('.comments-list');
+                const newComment = document.createElement('div');
+                newComment.classList.add('comment');
+                newComment.innerHTML = `<p><strong>Tú:</strong> ${commentText}</p>`;
+                commentList.appendChild(newComment);
+                document.getElementById('comment').value = '';
+            }
+            
+        });
+    </script>
+</body>
+</html>

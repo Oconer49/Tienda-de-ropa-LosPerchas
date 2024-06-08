@@ -7,21 +7,29 @@
     <link rel="icon" href="/static/imagenes/Logo.png">
 </head>
 <body>
-    <h1>Gestionar Descuentos</h1>
-    <form action="/gestionar_descuentos_post" method="post">
-        <label for="codigo_producto">Código del Producto</label>
-        <input type="text" id="codigo_producto" name="codigo_producto" required><br>
-
-        <label for="porcentaje_descuento">Porcentaje de Descuento</label>
-        <input type="number" id="porcentaje_descuento" name="porcentaje_descuento" required><br>
-
-        <label for="accion">Acción</label>
-        <select id="accion" name="accion">
-            <option value="aplicar">Aplicar Descuento</option>
-            <option value="quitar">Quitar Descuento</option>
-        </select><br>
-
-        <input type="submit" value="Gestionar">
-    </form>
+    {% include 'barra_lateral.html' %}
+    <h1>Gestionar descuentos</h1>
+    <div class="wrapper">
+        <span class="slider"></span>
+        <div class="flip-card__inner">
+            <div class="flip-card__front">
+                <form action="/gestionar_descuentos_post" method="post">
+                    <label for="codigo_producto">Código del Producto</label>
+                    <input type="text" id="codigo_producto" name="codigo_producto" required><br>
+            
+                    <label for="porcentaje_descuento">Porcentaje de Descuento</label>
+                    <input type="number" id="porcentaje_descuento" name="porcentaje_descuento" required><br>
+            
+                    <label for="accion">Acción</label>
+                    <select id="accion" name="accion">
+                        <option value="aplicar">Aplicar Descuento</option>
+                        <option value="quitar">Quitar Descuento</option>
+                    </select><br>
+            
+                    <input type="submit" value="Gestionar">
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

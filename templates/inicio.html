@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -8,104 +7,45 @@
         <link rel="icon" href="https://i.postimg.cc/Y0hLQQmm/Logo.png">
     </head>
     <body>
-        <img src="https://i.postimg.cc/Y0hLQQmm/Logo.png" width="300" height="300" style="display: block; margin-left: auto; margin-right: auto;">
-        
-
-        <div class="overlay"></div>
-            <div class="menu" id="menu">
-                <div class="menu-header">
-                    <img src="https://i.postimg.cc/Y0hLQQmm/Logo.png" style="width: 100%; height: 100%; object-fit: contain;">
-                    <button class="close-btn" id="close-btn">×</button>
+        {% include 'barra_lateral.html' %}
+        <img src="https://i.postimg.cc/Y0hLQQmm/Logo.png" width="300" height="300" style="display: block; margin-left: auto; margin-right: auto;"> 
+        <div class="carrusel">
+            {% for producto in productos %}
+            <div class="card">
+                <div class="image_container">
+                    <a href="/descripcion/{{ producto[0] }}">
+                        <img src="{{ producto[3] }}" alt="Imagen del producto">
+                    </a>
                 </div>
-                <ul class="menu-list">
-                    <li><a href="/inicio">Inicio</a></li>
-                    {% if current_user.is_authenticated %}
-                        {% if current_user.es_admin %}
-                            <li><a href="/admin">Administrador</a></li>
-                        {% else %}
-                            <li><a href="/carrito">Carrito</a></li>
-                        {% endif %}
-                        <li><a href="/logout">Cerrar Sesión</a></li>
-                    {% else %}
-                        <li><a href="/login">Iniciar Sesión</a></li>
-                        <li><a href="/register">Registrarse</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </div>
-        <button class="open-btn" id="open-btn">☰</button>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                const openBtn = document.getElementById('open-btn');
-                const closeBtn = document.getElementById('close-btn');
-                const menu = document.getElementById('menu');
-                const overlay = document.querySelector('.overlay');
-
-                openBtn.addEventListener('click', () => {
-                    menu.classList.add('open');
-                    overlay.classList.add('show');
-                });
-                closeBtn.addEventListener('click', () => {
-                    menu.classList.remove('open');
-                    overlay.classList.remove('show');
-                });
-
-                overlay.addEventListener('click', () => {
-                    menu.classList.remove('open');
-                    overlay.classList.remove('show');
-                });
-                openBtn.addEventListener('click', () => {
-                menu.classList.add('open');
-                overlay.classList.add('show');
-                openBtn.style.display = 'none'; 
-                });
-                closeBtn.addEventListener('click', () => {
-                menu.classList.remove('open');
-                overlay.classList.remove('show');
-                openBtn.style.display = 'block'; 
-                });
-
-                overlay.addEventListener('click', () => {
-                menu.classList.remove('open');
-                overlay.classList.remove('show');
-                openBtn.style.display = 'block'; 
-                });
-            });
-        </script>
-            <div class="carrusel">
-                {% for producto in productos %}
-                <div class="card">
-                    <div class="image_container">
-                        <img src="https://i.postimg.cc/T3THGw8W/Daniel.jpg" alt="Tu Imagen">
+                <div class="title">
+                    <span>{{ producto[1] }}</span>
+                </div>
+                <div class="size">
+                    <span>Talla</span>
+                    <ul class="list-size">
+                        <li class="item-list"><button class="item-list-button">S</button></li>
+                        <li class="item-list"><button class="item-list-button">M</button></li>
+                        <li class="item-list"><button class="item-list-button">L</button></li>
+                        <li class="item-list"><button class="item-list-button">XL</button></li>
+                        <li class="item-list"><button class="item-list-button">XXL</button></li>
+                    </ul>
+                </div>
+                <div class="action">
+                    <div class="price">
+                        <span>${{ producto[2] }}</span>
                     </div>
-                    <div class="title">
-                        <span>New brand name</span>
-                    </div>
-                    <div class="size">
-                        <span>Size</span>
-                        <ul class="list-size">
-                            <li class="item-list"><button class="item-list-button">S</button></li>
-                            <li class="item-list"><button class="item-list-button">M</button></li>
-                            <li class="item-list"><button class="item-list-button">L</button></li>
-                            <li class="item-list"><button class="item-list-button">XL</button></li>
-                            <li class="item-list"><button class="item-list-button">XXL</button></li>
-                        </ul>
-                    </div>
-                    <div class="action">
-                        <div class="price">
-                            <span>$299.300</span>
-                        </div>
-                        <button class="cart-button">
+                    <form action="/agregar_al_carrito/{{ producto[0] }}" method="post">
+                        <button class="cart-button" type="submit">
                             <svg class="cart-icon" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" stroke-linejoin="round" stroke-linecap="round"></path>
                             </svg>
                             <span>Añadir</span>
                         </button>
-                    </div>
+                    </form>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
-    </body>
+    </div>
+</body>
 </html>

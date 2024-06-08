@@ -1,15 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('https://i.postimg.cc/X797m23Y/fondo.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-color: contain;
-    display: flex;
-    zoom: 0.7;
-    min-height: 100vh;
-    margin: 0;
-}
 .logo  {
     position: absolute;
     display: block;
@@ -44,7 +32,7 @@ body {
     border: 2px solid var(--main-color);
     box-shadow: 4px 4px var(--main-color);
     width: 15em;
-    height: 45em;
+    height: 15em;
 }
 
 .flip-card__form {
@@ -54,20 +42,16 @@ body {
     height: 43em;
     padding-bottom: 3em;
 }
-.title {
-    margin: 20px 0 20px 0;
-    font-size: 25px;
-    font-weight: 900;
-    text-align: center;
-    color: var(--main-color)
-}
 .flip-card__inner {
     transition: transform 0.8s;
     transform-style: preserve-3d;
     width: calc(100% - 20px); 
     margin-left: 10px;
 }
-
+h1 {
+    display: flex;
+    justify-content: center;
+}
 .avatars {
     display: flex;
     position:absolute;
@@ -136,4 +120,38 @@ body {
     font-size: 18px;
     height: 24px;
     width: 10em;
+  }
+
+  .flip-card__Agregar {
+    padding: 20px;
+    margin-inline-start: -100px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    backface-visibility: hidden;
+    background: lightgray;
+    border-radius: 20px;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    width: 13em;
+    height: 32em;
+    right: 3em;
+  }
+
+  .flip-card_eliminar {
+    padding: 20px;
+    margin-inline-start: -100px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    backface-visibility: hidden;
+    background: lightgray;
+    border-radius: 20px;
+    border: 2px solid var(--main-color);
+    box-shadow: 4px 4px var(--main-color);
+    width: 13em;
+    height: 15em;
+    left: 9em;
   }

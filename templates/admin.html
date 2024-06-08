@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel de Administrador</title>
-    <link rel="stylesheet" href="/static/estilosadmin.css">
+    <link rel="stylesheet" href="/static/admin.css">
     <link rel="icon" href="/static/imagenes/Logo.png">
 </head>
 <body>
     <h1>Panel de Administrador</h1>
-
+    {% include 'barra_lateral.html' %}
     <div class="cards">
 
         <form class="card descuento" action="/gestionar_descuentos" method="get">

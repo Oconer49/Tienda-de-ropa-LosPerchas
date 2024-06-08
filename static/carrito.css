@@ -1,17 +1,3 @@
-body {
-    font-family: Arial, sans-serif;
-    background-image: url('https://i.postimg.cc/X797m23Y/fondo.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-color: contain;
-    display: flex;
-    justify-content: center;
-
-    zoom: 0.7;
-    min-height: 100vh;
-    margin: 0;
-}
 .card {
     --bg-card: #27272a;
     --primary: #6d28d9;
@@ -20,20 +6,19 @@ body {
     --light: #d9d9d9;
     --zinc-800: #18181b;
     --bg-linear: linear-gradient(0deg, var(--primary) 50%, var(--light) 125%);
-
-    position: absolute;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     gap: 0.75rem;
     padding: 1rem;
-    width: 14rem;
+    width: 20rem;
     background-color: var(--bg-card);
     border-radius: 1rem;
-    top: 300px;
-    left: 700px;
     align-items: center;
-
+    height: 20em;
+    min-width: 230px;
 }
+
+
 .image_container {
     overflow: hidden;
     cursor: pointer;
@@ -102,29 +87,73 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--light);
-}
-.cart-button {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.5rem;
-    width: 100%;
-    background-image: var(--bg-linear);
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--light);
-    white-space: nowrap;
-    border: 2px solid hsla(0, 83%, 58%, 0.5);
-    border-radius: 0.5rem;
-    box-shadow: inset 0 0 0.25rem 1px var(--light);
-}
-.cart-button .cart-icon {
-    width: 1rem;
+    left: 20px;
 }
 
-input[type=submit]  {
+
+  h1 {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    left: 50%;
+}
+.comprar, .eliminar {
+    top: 70%;
+}
+
+.carrusel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 40px;
+    padding: 10px;
+    max-width: 15em;
+    overflow-x: scroll;
+    scroll-snap-stop: x mandatory;
+    position: relative;
+    top: 35%;
+    left: 43%;
+    height: 25em;
+    width: 300em;
+}
+
+.carrusel::-webkit-scrollbar {
+    height: 10px;
+    top: 30%;
+}
+
+.carrusel::-webkit-scrollbar-thumb {
+    background: #747373;
+    border-radius: 10px;
+}
+
+.carrusel::-webkit-scrollbar-track {
+    background: #e7e4e4;
+    border-radius: 10px;
+}
+
+.eliminar {
+    --bg: #ff8e8e;
+    --hover-bg: #ff6e6e;
+    --hover-text: #000;
+    color: #fff;
+    cursor: pointer;
+    border: 1px solid var(--bg);
+    border-radius: .4px;
+    padding: .8em 2em;
+    background: var(--bg);
+    transition: .2s;
+    position: absolute;
+    height: 50px;
+    font-size: 18px;
+    height: 50px;
+    width: 6em;
+    top: 50px;
+    left: -8px;
+    text-align: center;
+}
+.pagar {
     --bg: #ff8e8e;
     --hover-bg: #ff6e6e;
     --hover-text: #000;
@@ -136,31 +165,31 @@ input[type=submit]  {
     background: var(--bg);
     transition: .2s;
     height: 50px;
-  }
-  
-  input[type=submit]:hover {
+    font-size: 18px;
+    height: 50px;
+    width: 6em;
+    position: absolute;
+    left: 49em;
+    top: 5em;
+}
+
+.eliminar:hover, .pagar:hover {
     color: var(--hover-text);
     transform: translate(0, .25rem);
     background: var(--hover-bg);
     box-shadow: .25rem .25rem var(--bg);
-  }
-  
-  input[type=submit]:active {
+}
+.eliminar:active, .pagar:active {
     transform: translate(0);
     box-shadow: none;
-  }
-  input {
-    font-size: 18px;
-    height: 20px;
-    width: 10em;
-  }
-
-  h1 {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    left: 50%;
 }
-.comprar, .eliminar {
-    top: 70%;
+
+.subtotal {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--light);
+    top: 50px;
+    left: 45%;
+    position: absolute;
+    top: 55%;
 }
