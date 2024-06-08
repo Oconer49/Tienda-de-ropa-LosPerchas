@@ -1,4 +1,160 @@
+from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import pymysql
+import datetime
 
+login_manager = LoginManager()
+app = Flask(__name__)
+app.secret_key = 'tu_clave_secreta'
+login_manager.init_app(app)
+
+class User(UserMixin):
+    es_admin = False
+    email = None
+
+@login_manager.user_loader
+def user_loader(email):
+    miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+    cur = miConexion.cursor()
+    cur.execute('SELECT Correo_Electronico, Admin FROM Usuarios WHERE Correo_Electronico = %s', (email,))
+    user_db = cur.fetchone()
+    if user_db is None:
+        return
+    user = User()
+    user.id = email
+    user.email = email
+    user.es_admin = user_db[1]
+    return user
+
+@app.route('/register', methods=['GET'])
+def register_get():
+    return render_template('index.html')
+
+@app.route('/register', methods=['POST'])
+def register_post():
+    email = request.form['email']
+    nombre = request.form['nombre']
+    apellido = request.form['apellido']
+    pais = request.form['paisNacimiento']
+    departamento = request.form['deptoNacimiento']
+    municipio = request.form['municipioNacimiento']
+    telefono = request.form['telefono']
+    password = request.form['password']
+    confirm_password = request.form['confirm_password']
+
+    if password == confirm_password:
+        miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+        cur = miConexion.cursor()
+        cur.execute('INSERT INTO Usuarios (Correo_Electronico, Nombre, Apellido, Telefono, Contrasena, Pais_Nacimiento, Departamento_Nacimiento, Municipio_Nacimiento) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)', (email, nombre, apellido, telefono, password, pais, departamento, municipio))
+        miConexion.commit()
+        miConexion.close()
+    else:
+        return 'La contraseña y la confirmación de la contraseña no coinciden.', 400
+
+    return redirect(url_for('login_get'))
+
+@app.route('/login', methods=['GET'])
+def login_get():
+    return render_template('login.html')
+
+@app.route('/login', methods=['POST'])
+def login_post():
+    email = request.form['email']
+    password = request.form['password']
+    miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+    cur = miConexion.cursor()
+    cur.execute('SELECT Contrasena, Admin FROM Usuarios WHERE Correo_Electronico = %s', (email,))
+    user_db = cur.fetchone()
+    if user_db is None or user_db[0] != password:
+        return 'Correo electrónico o contraseña incorrectos'
+    user = User()
+    user.id = email
+    user.es_admin = user_db[1]
+    login_user(user)
+    return redirect(url_for('inicio'))
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return 'Has cerrado sesión'  
+
+@app.route('/protected')
+@login_required
+def protected():
+    if current_user.es_admin:
+        return 'Eres un administrador'
+    else:
+        return 'Eres un usuario'
+
+@app.route('/inicio')
+def inicio():
+    miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+    cur = miConexion.cursor()
+    cur.execute('SELECT Id_Producto, Nombre_Producto, Precio_Producto, url_producto FROM Producto')  
+    productos = cur.fetchall()
+    miConexion.close()
+
+    return render_template('inicio.html', productos=productos)
+
+@app.route('/descripcion/<int:producto_id>')
+def descripcion(producto_id):
+    miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+    cur = miConexion.cursor()
+    cur.execute('SELECT * FROM Producto WHERE Id_Producto = %s', (producto_id,))
+    producto = cur.fetchone()
+
+    cur.execute('SELECT * FROM Comentarios WHERE Id_Producto = %s', (producto_id,))
+    comentarios = cur.fetchall()
+
+    miConexion.close()
+
+    if producto is None:
+        return 'Producto no encontrado', 404
+
+    return render_template('descripcion.html', producto=producto, comentarios=comentarios)
+
+@app.route('/', methods=['GET'])
+def home():
+    miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+    cur = miConexion.cursor()
+
+    cur.execute('select Id_Departamento, Nombre_Departamento, Id_Pais from departamento')
+    departamentos = cur.fetchall()
+
+    cur.execute('select Nombre_pais, Id_Pais from pais')
+    paises = cur.fetchall()
+
+    cur.execute('select Id_municipio, Nombre_municipio, Id_departamento from municipio')
+    municipios = cur.fetchall()
+
+    miConexion.close()
+
+    return render_template('index.html', departamentos=departamentos, paises=paises, municipios=municipios)
+
+@app.route('/get_departamentos/<paisId>', methods=['GET'])
+def get_departamentos(paisId):
+    miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+    cur = miConexion.cursor()
+
+    cur.execute('select Id_Departamento, Nombre_Departamento from departamento where Id_Pais = %s', (paisId,))
+    departamentos = cur.fetchall()
+
+    miConexion.close()
+
+    return jsonify(departamentos=departamentos)
+
+@app.route('/get_municipios/<deptoId>', methods=['GET'])
+def get_municipios(deptoId):
+    miConexion = pymysql.connect(host ='localhost',user ='root',passwd ='123daniel...',db = 'proyecto')
+    cur = miConexion.cursor()
+
+    cur.execute('select Id_municipio, Nombre_municipio from municipio where Id_departamento = %s', (deptoId,))
+    municipios = cur.fetchall()
+
+    miConexion.close()
+
+    return jsonify(municipios=municipios)
 
 @app.route('/admin')
 @login_required
