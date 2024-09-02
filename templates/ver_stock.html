@@ -7,14 +7,23 @@
     <link rel="icon" href="/static/imagenes/Logo.png">
     <style>
         table {
-            width: 40%;
+            width: 80%; /* Ajusté el ancho para que se adapte mejor a diferentes pantallas */
             border-collapse: collapse;
-            height: 30%;
+            margin: 20px auto; /* Centrando la tabla */
         }
         th, td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
+        }
+        th {
+            background-color: #f4f4f4; /* Color de fondo para las cabeceras */
+        }
+        td {
+            background-color: #fff; /* Color de fondo para las celdas */
+        }
+        h1 {
+            text-align: center; /* Centra el título */
         }
     </style>
 </head>
@@ -22,24 +31,28 @@
     <h1>Stock de Productos</h1>
     {% include 'barra_lateral.html' %}
     <table>
-        <tr>
-            <th>Código del Producto</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-            <th>Talla</th>
-            <th>Color</th>
-        </tr>
-        {% for producto in stock %}
-        <tr>
-            <td>{{ producto[0] }}</td>
-            <td>{{ producto[1] }}</td>
-            <td>{{ producto[2] }}</td>
-            <td>{{ producto[3] }}</td>
-            <td>{{ producto[4] }}</td>
-            <td>{{ producto[5] }}</td>
-        </tr>
-        {% endfor %}
+        <thead>
+            <tr>
+                <th>Código del Producto</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Talla</th>
+                <th>Color</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in stock %}
+            <tr>
+                <td>{{ producto[0] }}</td>
+                <td>{{ producto[1] }}</td>
+                <td>{{ producto[2] }}</td>
+                <td>${{ producto[3] }}</td> 
+                <td>{{ producto[4] }}</td>
+                <td>{{ producto[5] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </body>
 </html>

@@ -12,7 +12,8 @@ connection = MongoClient(uri, server_api=ServerApi('1'))
 
 try:
     connection.admin.command('ping')
-    database = connection["Inventory"]
+    database = connection["Project"]
     print("Conexion exitosa a la base de datos")
 except Exception as e:
     print(e)
+

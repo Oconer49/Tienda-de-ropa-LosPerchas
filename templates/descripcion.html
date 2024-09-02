@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="product-gallery">
-            <div class="product-gallery">
+            <div class="product-images">
                 <img src="https://i.postimg.cc/fTXsZVzc/imagen-2024-06-07-171640875.png" alt="Imagen del producto" class="imagen_normal">
                 <img src="https://i.postimg.cc/fTXsZVzc/imagen-2024-06-07-171640875.png" alt="Imagen del producto" class="hover-image">
             </div>
@@ -51,7 +51,7 @@
         </div>
     </div>
     <script>
-         function incrementarCantidad() {
+        function incrementarCantidad() {
             var cantidadInput = document.getElementById('cantidad_producto');
             cantidadInput.value = parseInt(cantidadInput.value) + 1;
         }
@@ -74,9 +74,7 @@
                 commentList.appendChild(newComment);
                 document.getElementById('comment').value = '';
             }
-            
         });
     </script>
 </body>
 </html>
-
