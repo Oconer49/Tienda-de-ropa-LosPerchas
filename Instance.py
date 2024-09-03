@@ -6,7 +6,7 @@ import os
 load_dotenv()
 api_key = os.getenv("LosPerchas_API_KEY")
 
-uri = f"mongodb+srv://darenaslop3z:{api_key}@cluster0.xaevb.mongodb.net/"
+uri = f"mongodb+srv://darenaslop3z:q7panl8Q4GQnqMAI@cluster0.xaevb.mongodb.net/"
 
 connection = MongoClient(uri, server_api=ServerApi('1'))
 

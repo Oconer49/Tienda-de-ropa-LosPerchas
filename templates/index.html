@@ -34,12 +34,13 @@
                 url: '/get_municipios/' + deptoId,
                 type: 'get',
                 success: function(response){
+                    console.log(response)
                     var municipios = response.municipios;
                     var munSelect = $('#municipioNacimiento');
                     munSelect.empty();
                     munSelect.append('<option value="">Selecciona un municipio</option>');
                     $.each(municipios, function(key, value){
-                        munSelect.append('<option value="'+value.Id_Municipio+'">'+value.Nombre_Municipio+'</option>');
+                        munSelect.append('<option value="'+value.Id_municipio+'">'+value.Nombre_municipio+'</option>');
                     });
                 },
                 error: function(xhr, status, error){

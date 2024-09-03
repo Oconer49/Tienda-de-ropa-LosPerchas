@@ -134,11 +134,11 @@ def get_departamentos(paisId):
 
 @app.route('/get_municipios/<deptoId>', methods=['GET'])
 def get_municipios(deptoId):
-    municipios = list(municipiodb.find({"Id_Departamento": int(deptoId)}))
+    municipios = list(municipiodb.find({"Id_departamento": int(deptoId)}))
     print("Municipios:", municipios)
     return jsonify(municipios=[{
-        'Id_Municipio': m['Id_Municipio'],
-        'Nombre_Municipio': m['Nombre_Municipio']
+        'Id_municipio': m['Id_municipio'],
+        'Nombre_municipio': m['Nombre_municipio']
     } for m in municipios])
 
 @app.route('/admin')
