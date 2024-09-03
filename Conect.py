@@ -61,7 +61,8 @@ def register_post():
             "Contrasena": password,
             "Pais_Nacimiento": pais,
             "Departamento_Nacimiento": departamento,
-            "Municipio_Nacimiento": municipio
+            "Municipio_Nacimiento": municipio,
+            "Admin": False
         })
         return redirect(url_for('login_get'))
     else:

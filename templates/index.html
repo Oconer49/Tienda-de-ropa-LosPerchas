@@ -91,11 +91,17 @@
                     <label for="deptoNacimiento">Departamento de nacimiento</label>
                     <select id="deptoNacimiento" name="deptoNacimiento" required>
                         <option value="">Selecciona un departamento</option>
+                        {% for depto in departamentos %}
+                            <option value="{{ depto['Id_Departamento'] }}">{{ depto['Nombre_Departamento'] }}</option>
+                        {% endfor %}
                     </select><br>
 
                     <label for="municipioNacimiento">Municipio de nacimiento</label>
                     <select id="municipioNacimiento" name="municipioNacimiento" required>
                         <option value="">Selecciona un municipio</option>
+                        {% for municipio in municipios %}
+                            <option value="{{ municipio['Id_municipio'] }}">{{ municipio['Nombre_municipio'] }}</option>
+                        {% endfor %}
                     </select><br>
 
                     <input type="submit" value="Enviar">
