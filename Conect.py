@@ -159,6 +159,33 @@ def carrito():
         productos = []
     return render_template('carrito.html', productos=productos)
 
+@app.route('/agregar_al_carrito', methods=['POST'])
+@login_required
+def agregar_al_carrito():
+    producto_id = request.form['producto_id']
+    cantidad = int(request.form['cantidad'])
+
+    carrito = carritodb.find_one({"Correo_Usuario": current_user.email})
+    
+    if carrito:
+        item = items_carritodb.find_one({"Id_Carrito": carrito["_id"], "Id_Producto": producto_id})
+        
+        if item:
+            items_carritodb.update_one(
+                {"_id": item["_id"]},
+                {"$inc": {"Cantidad_Producto": cantidad}}
+            )
+        else:
+            items_carritodb.insert_one({
+                "Id_Carrito": carrito["_id"],
+                "Id_Producto": producto_id,
+                "Cantidad_Producto": cantidad
+            })
+
+        return redirect(url_for('carrito'))
+    else:
+        return 'Carrito no encontrado', 404
+
 @app.route('/pagar', methods=['POST'])
 @login_required
 def pagar():
@@ -174,13 +201,41 @@ def pagar():
 
     return 'Compra exitosa! Tu total fue: $' + str(total)
 
-@app.route('/agregar_mercancia', methods=['GET'])
+@app.route('/actualizar_mercancia', methods=['GET'])
 @login_required
-def agregar_mercancia():
+def actualizar_mercancia():
     if current_user.es_admin:
-        return render_template('agregar_mercancia.html')
+        return render_template('actualizar_mercancia.html')
     else:
         return 'No tienes permiso para acceder a esta página'
+
+@app.route('/actualizar_mercancia_post', methods=['POST'])
+@login_required
+def actualizar_mercancia_post():
+    if current_user.es_admin:
+        codigo_producto = request.form['codigo_producto']
+        cantidad_producto = int(request.form['cantidad_producto'])
+        accion = request.form['accion']
+
+        producto = productodb.find_one({"_id": ObjectId(codigo_producto)})
+
+        if producto:
+            nueva_cantidad = int(producto['Cantidad']) 
+            if accion == 'agregar':
+                nueva_cantidad += cantidad_producto
+            elif accion == 'quitar':
+                nueva_cantidad -= cantidad_producto
+
+            productodb.update_one(
+                {"_id": ObjectId(codigo_producto)},
+                {"$set": {"Cantidad": nueva_cantidad}}
+            )
+
+            return 'Cantidad actualizada exitosamente', 200
+        else:
+            return 'Producto no encontrado', 404
+    else:
+        return 'No tienes permiso para acceder a esta página', 403
 
 @app.route('/agregar_mercancia_post', methods=['POST'])
 @login_required
@@ -255,26 +310,51 @@ def gestionar_descuentos_post():
 
         producto = productodb.find_one({"_id": ObjectId(codigo_producto)})
 
-        if accion == 'aplicar':
-            nuevo_precio = producto["Precio_Producto"] - (producto["Precio_Producto"] * porcentaje_descuento / 100)
-        elif accion == 'quitar':
-            nuevo_precio = producto["Precio_Producto"] + (producto["Precio_Producto"] * porcentaje_descuento / 100)
+        if producto:
+            precio_producto = float(producto["Precio_Producto"])
 
-        productodb.update_one({"_id": ObjectId(codigo_producto)}, {"$set": {"Precio_Producto": nuevo_precio}})
+            if accion == 'aplicar':
+                if 'Precio_Original' not in producto:
+                    productodb.update_one(
+                        {"_id": ObjectId(codigo_producto)},
+                        {"$set": {"Precio_Original": precio_producto}}
+                    )
 
-        return 'El descuento ha sido gestionado exitosamente'
+                nuevo_precio = precio_producto * (1 - porcentaje_descuento / 100)
+            
+            elif accion == 'quitar':
+                if 'Precio_Original' in producto:
+                    nuevo_precio = producto["Precio_Original"]
+                else:
+                    return 'No hay descuento aplicado previamente para quitar', 400
+
+            productodb.update_one(
+                {"_id": ObjectId(codigo_producto)},
+                {"$set": {"Precio_Producto": nuevo_precio}}
+            )
+
+            if accion == 'quitar':
+                productodb.update_one(
+                    {"_id": ObjectId(codigo_producto)},
+                    {"$unset": {"Precio_Original": ""}}
+                )
+
+            return 'El descuento ha sido gestionado exitosamente', 200
+        else:
+            return 'Producto no encontrado', 404
     else:
-        return 'No tienes permiso para acceder a esta página'
+        return 'No tienes permiso para acceder a esta página', 403
 
 @app.route('/ver_stock', methods=['GET'])
 @login_required
 def ver_stock():
     if current_user.es_admin:
         stock = list(productodb.find({}))
+        print("Productos en stock:", stock)
         return render_template('ver_stock.html', stock=stock)
     else:
         return 'No tienes permiso para acceder a esta página'
-
+    
 @app.route('/inventario')
 def inventario():
     productos = list(productodb.find({}))
