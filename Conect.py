@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 import datetime
 from bson.objectid import ObjectId
+from Funciones import CreateID
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -242,6 +243,7 @@ def actualizar_mercancia_post():
 @login_required
 def agregar_mercancia_post():
     if current_user.es_admin:
+        id_producto = CreateID(productodb)
         nombre_producto = request.form['nombre_producto']
         descripcion_producto = request.form['descripcion_producto']
         precio_producto = request.form['precio_producto']
@@ -252,6 +254,7 @@ def agregar_mercancia_post():
         url_producto = request.form['url_producto']
 
         productodb.insert_one({
+            "_id": id_producto,
             "Nombre_Producto": nombre_producto,
             "Descripcion_Producto": descripcion_producto,
             "Precio_Producto": precio_producto,
