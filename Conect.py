@@ -1,9 +1,9 @@
 from Instance import database
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-import datetime
 from bson.objectid import ObjectId
 from Funciones import CreateID
+import datetime
 
 login_manager = LoginManager()
 app = Flask(__name__)
@@ -109,13 +109,26 @@ def inicio():
 
 @app.route('/descripcion/<producto_id>')
 def descripcion(producto_id):
-    producto = productodb.find_one({"_id": ObjectId(producto_id)})
-    comentarios = list(comentariosdb.find({"Id_Producto": ObjectId(producto_id)}))
+    try:
+        producto = productodb.find_one({"_id": int(producto_id)})
+        comentarios = list(comentariosdb.find({"Id_Producto": int(producto_id)}))
+    except:
+        return 'Producto no encontrado', 404
 
     if producto is None:
         return 'Producto no encontrado', 404
 
     return render_template('descripcion.html', producto=producto, comentarios=comentarios)
+
+# @app.route('/descripcion/<producto_id>')
+# def descripcion(producto_id):
+#     producto = productodb.find_one({"_id": int(producto_id)})
+#     comentarios = list(comentariosdb.find({"Id_Producto": int(producto_id)}))
+
+#     if producto is None:
+#         return 'Producto no encontrado', 404
+
+#     return render_template('descripcion.html', producto=producto, comentarios=comentarios)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -155,10 +168,14 @@ def admin():
 @login_required
 def carrito():
     carrito = carritodb.find_one({"Correo_Usuario": current_user.email})
-    if carrito:
-        productos = list(items_carritodb.find({"Id_Carrito": carrito["_id"]}))
-    else:
-        productos = []
+    productos = []
+    if carrito: 
+        items = list(items_carritodb.find({"Id_Carrito": carrito["_id"]}))
+        for item in items:
+            producto = productodb.find_one({"_id": int(item["Id_Producto"])})
+            if producto:
+                producto['Cantidad_Producto'] = item['Cantidad_Producto']
+                productos.append(producto)
     return render_template('carrito.html', productos=productos)
 
 @app.route('/agregar_al_carrito', methods=['POST'])
@@ -169,24 +186,29 @@ def agregar_al_carrito():
 
     carrito = carritodb.find_one({"Correo_Usuario": current_user.email})
     
-    if carrito:
-        item = items_carritodb.find_one({"Id_Carrito": carrito["_id"], "Id_Producto": producto_id})
-        
-        if item:
-            items_carritodb.update_one(
-                {"_id": item["_id"]},
-                {"$inc": {"Cantidad_Producto": cantidad}}
-            )
-        else:
-            items_carritodb.insert_one({
-                "Id_Carrito": carrito["_id"],
-                "Id_Producto": producto_id,
-                "Cantidad_Producto": cantidad
-            })
-
-        return redirect(url_for('carrito'))
+    if not carrito:
+        carrito_id = carritodb.insert_one({
+            "Correo_Usuario": current_user.email,
+            "Fecha_Creacion": datetime.datetime.now()
+        }).inserted_id
     else:
-        return 'Carrito no encontrado', 404
+        carrito_id = carrito["_id"]
+
+    item = items_carritodb.find_one({"Id_Carrito": carrito_id, "Id_Producto": ObjectId(producto_id)})
+
+    if item:
+        items_carritodb.update_one(
+            {"_id": item["_id"]},
+            {"$inc": {"Cantidad_Producto": cantidad}}
+        )
+    else:
+        items_carritodb.insert_one({
+            "Id_Carrito": carrito_id,
+            "Id_Producto": ObjectId(producto_id),
+            "Cantidad_Producto": cantidad
+        })
+
+    return redirect(url_for('carrito'))
 
 @app.route('/pagar', methods=['POST'])
 @login_required
@@ -219,7 +241,7 @@ def actualizar_mercancia_post():
         cantidad_producto = int(request.form['cantidad_producto'])
         accion = request.form['accion']
 
-        producto = productodb.find_one({"_id": ObjectId(codigo_producto)})
+        producto = productodb.find_one({"_id": int(codigo_producto)})
 
         if producto:
             nueva_cantidad = int(producto['Cantidad']) 
@@ -229,7 +251,7 @@ def actualizar_mercancia_post():
                 nueva_cantidad -= cantidad_producto
 
             productodb.update_one(
-                {"_id": ObjectId(codigo_producto)},
+                {"_id": int(codigo_producto)},
                 {"$set": {"Cantidad": nueva_cantidad}}
             )
 
@@ -261,7 +283,7 @@ def agregar_mercancia_post():
             "Tipo_Producto": tipo_producto,
             "Talla_Producto": talla_producto,
             "Color_Producto": color_producto,
-            "Cantidad": cantidad_producto,
+            "Cantidad": int(cantidad_producto),
             "url_producto": url_producto
         })
 
@@ -282,7 +304,7 @@ def eliminar_mercancia():
 def eliminar_mercancia_post():
     if current_user.es_admin:
         codigo_producto = request.form['codigo_producto']
-        productodb.delete_one({"_id": ObjectId(codigo_producto)})
+        productodb.delete_one({"_id": int(codigo_producto)})
 
         return 'El producto ha sido eliminado exitosamente'
     else:
@@ -304,6 +326,7 @@ def gestionar_descuentos():
     else:
         return 'No tienes permiso para acceder a esta página'
 
+
 @app.route('/gestionar_descuentos_post', methods=['POST'])
 @login_required
 def gestionar_descuentos_post():
@@ -312,7 +335,7 @@ def gestionar_descuentos_post():
         porcentaje_descuento = float(request.form['porcentaje_descuento'])
         accion = request.form['accion']
 
-        producto = productodb.find_one({"_id": ObjectId(codigo_producto)})
+        producto = productodb.find_one({"_id": int(codigo_producto)})
 
         if producto:
             precio_producto = float(producto["Precio_Producto"])
@@ -320,7 +343,7 @@ def gestionar_descuentos_post():
             if accion == 'aplicar':
                 if 'Precio_Original' not in producto:
                     productodb.update_one(
-                        {"_id": ObjectId(codigo_producto)},
+                        {"_id": int(codigo_producto)},
                         {"$set": {"Precio_Original": precio_producto}}
                     )
 
@@ -333,13 +356,13 @@ def gestionar_descuentos_post():
                     return 'No hay descuento aplicado previamente para quitar', 400
 
             productodb.update_one(
-                {"_id": ObjectId(codigo_producto)},
+                {"_id": int(codigo_producto)},
                 {"$set": {"Precio_Producto": nuevo_precio}}
             )
 
             if accion == 'quitar':
                 productodb.update_one(
-                    {"_id": ObjectId(codigo_producto)},
+                    {"_id": codigo_producto},
                     {"$unset": {"Precio_Original": ""}}
                 )
 

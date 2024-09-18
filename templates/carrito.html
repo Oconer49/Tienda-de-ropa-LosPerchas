@@ -13,19 +13,19 @@
         {% for producto in productos %}
         <div class="card">
             <div class="image_container">
-                <img src="{{ producto[url_producto] }}" alt="Imagen del producto">
+                <img src="{{ producto['url_producto'] }}" alt="Imagen del producto">
             </div>
             <div class="title">
-                <span>{{ producto[1] }}</span>
+                <span>{{ producto['Nombre_Producto'] }}</span>
             </div>
             <div class="size">
-                <span>Cantidad: {{ producto[4] }}</span>
+                <span>Cantidad: {{ producto['Cantidad_Producto'] }}</span>
             </div>
             <div class="action">
                 <div class="price">
-                    <span>${{ producto[2] }}</span>
+                    <span>${{ producto['Precio_Producto'] }}</span>
                 </div>
-                <form action="/eliminar_del_carrito/{{ producto[0] }}" method="post">
+                <form action="/eliminar_del_carrito/{{ producto['_id'] }}" method="post">
                     <button type="submit" class="eliminar">Eliminar</button>
                 </form>
             </div>
@@ -36,7 +36,7 @@
         <button type="submit" class="pagar">Pagar</button>
     </form>
     <div class="subtotal">
-        <span>Subtotal: ${{ productos|sum(attribute='2') }}</span>
+        <span>Subtotal: ${{ productos|sum(attribute='Precio_Producto') }}</span>
     </div>
 </body>
 </html>
