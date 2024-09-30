@@ -5,6 +5,7 @@
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="/static/index.css">
     <link rel="icon" href="/static/imagenes/Logo.png">
+    <link rel="icon" href="https://i.postimg.cc/Y0hLQQmm/Logo.png">
 </head>
 <body>
     <div class="wrapper">
@@ -12,7 +13,7 @@
         <div class="flip-card__inner">
             <div class="flip-card__front">
                 <div class="title">Iniciar Sesión</div>
-                <form class="flip-card__form" action="/login" method="post">
+                <form class="flip-card__form" id="loginForm">
                     <label for="email">Correo Electrónico</label>
                     <input type="email" id="email" name="email" required><br>
 
@@ -20,9 +21,40 @@
                     <input type="password" id="password" name="password" required><br>
 
                     <input type="submit" value="Iniciar Sesión">
+                    <a href="/register">
+                        <p>¿No tienes una cuenta? Crea una aqui</p>
+                    </a>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+            alert('Ocurrió un error. Inténtalo de nuevo más tarde.');
+        });
+    });
+    </script>
 </body>
 </html>

@@ -5,6 +5,36 @@
     <title>Actualizar Mercancía</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="icon" href="/static/imagenes/Logo.png">
+    <link rel="icon" href="https://i.postimg.cc/Y0hLQQmm/Logo.png">
+    <script>
+        async function actualizarMercancia(event) {
+            event.preventDefault();
+
+            const codigoProducto = document.getElementById("codigo_producto").value;
+            const cantidadProducto = document.getElementById("cantidad_producto").value;
+            const accion = document.getElementById("accion").value;
+
+            const response = await fetch('/actualizar_mercancia_post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    codigo_producto: codigoProducto,
+                    cantidad_producto: cantidadProducto,
+                    accion: accion
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                alert(data.message);
+            } else {
+                alert(data.message);
+            }
+        }
+    </script>
 </head>
 <body>
     <h1>Actualizar Mercancía</h1>
@@ -14,7 +44,7 @@
         <span class="slider"></span>
         <div class="flip-card__inner">
             <div class="flip-card__front">
-                <form action="/actualizar_mercancia_post" method="post">
+                <form onsubmit="actualizarMercancia(event)">
                     <label for="codigo_producto">Código del Producto</label>
                     <input type="text" id="codigo_producto" name="codigo_producto" required><br>
             

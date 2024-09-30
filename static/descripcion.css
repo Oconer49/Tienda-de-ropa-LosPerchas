@@ -21,13 +21,11 @@ body {
     position: relative;
 }
 .product-gallery img {
+    flex: 1;
     max-width: 100%;
     border: 1px solid #ddd;
     border-radius: 4px;
     transition: opacity 0.3s ease;
-}
-.product-gallery .imagen_normal {
-    filter: blur(30px);
 }
 .product-gallery .hover-image {
     position: absolute;
@@ -112,6 +110,7 @@ body {
 #comment-form {
     display: flex;
     flex-direction: column;
+    margin: 30px;
 }
 
 #comment-form label {

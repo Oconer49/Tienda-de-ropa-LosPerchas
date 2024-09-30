@@ -5,6 +5,36 @@
     <title>Gestionar Descuentos</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="icon" href="/static/imagenes/Logo.png">
+    <link rel="icon" href="https://i.postimg.cc/Y0hLQQmm/Logo.png">
+    <script>
+        async function gestionarDescuentos(event) {
+            event.preventDefault();
+
+            const codigoProducto = document.getElementById("codigo_producto").value;
+            const porcentajeDescuento = document.getElementById("porcentaje_descuento").value;
+            const accion = document.getElementById("accion").value;
+
+            const response = await fetch('/gestionar_descuentos_post', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    codigo_producto: codigoProducto,
+                    porcentaje_descuento: porcentajeDescuento,
+                    accion: accion
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.status === 'success') {
+                alert(data.message);
+            } else {
+                alert(data.message);
+            }
+        }
+    </script>
 </head>
 <body>
     {% include 'barra_lateral.html' %}
@@ -13,7 +43,7 @@
         <span class="slider"></span>
         <div class="flip-card__inner">
             <div class="flip-card__front">
-                <form action="/gestionar_descuentos_post" method="post">
+                <form onsubmit="gestionarDescuentos(event)">
                     <label for="codigo_producto">Código del Producto</label>
                     <input type="text" id="codigo_producto" name="codigo_producto" required><br>
             

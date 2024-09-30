@@ -4,34 +4,33 @@
     <link rel="stylesheet" href="/static/descripcion.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/imagenes/Logo.png">
+    <link rel="icon" href="https://i.postimg.cc/Y0hLQQmm/Logo.png">
     <title>Detalle del Producto</title>
 </head>
 <body>
+    {% include 'barra_lateral.html' %}
     <div class="container">
         <div class="product-gallery">
-            <div class="product-images">
-                <img src="https://i.postimg.cc/fTXsZVzc/imagen-2024-06-07-171640875.png" alt="Imagen del producto" class="imagen_normal">
-                <img src="https://i.postimg.cc/fTXsZVzc/imagen-2024-06-07-171640875.png" alt="Imagen del producto" class="hover-image">
-            </div>
-            <div class="thumbnails">
-            </div>
+                <div class="product-images">
+                    <img src="{{ producto['url_producto'] }}" alt="Imagen del producto" class="imagen_normal">
+                </div>
         </div>
         <div class="product-details">
-            <h1>{{ producto[1] }}</h1>
-            <p>{{ producto[2] }}</p>
+            
+            <h1>{{ producto['Nombre_Producto'] }}</h1>
+            <p>{{ producto['descripcion_producto'] }}</p>
             <div class="quantity-input">
                 <button type="button" onclick="decrementarCantidad()">-</button>
                 <input type="number" id="cantidad_producto" name="cantidad_producto" required min="0" value="0">
                 <button type="button" onclick="incrementarCantidad()">+</button>
             </div>
-            <!--<div class="actions">
-                <button class="buy-now">Comprar ahora</button>
-                <button class="add-to-cart">Agregar al carrito</button>
-            </div>-->
+            
             <p>Vendido por <strong>Los perchas</strong></p>
-            <p><strong>+25 ventas</strong></p>
+            <p><strong>{{producto[Nombre_Producto]}}</strong></p>
             <p>Devolución gratis. Tienes 30 días desde que lo recibes.</p>
             <p>Compra Protegida, recibe el producto que esperabas o te devolvemos tu dinero.</p>
+            
         </div>
     </div>
     <div class="comments-section">

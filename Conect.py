@@ -40,7 +40,6 @@ def register_get():
     print(paises)
     return render_template('index.html', paises=paises)
 
-
 @app.route('/register', methods=['POST'])
 def register_post():
     email = request.form['email']
@@ -65,9 +64,9 @@ def register_post():
             "Municipio_Nacimiento": municipio,
             "Admin": False
         })
-        return redirect(url_for('login_get'))
+        return jsonify({'success': True, 'redirect_url': url_for('login_get')})
     else:
-        return 'La contraseña y la confirmación de la contraseña no coinciden.', 400
+        return jsonify({'success': False, 'message': 'La contraseña y la confirmación de la contraseña no coinciden.'}), 400
 
 @app.route('/login', methods=['GET'])
 def login_get():
@@ -80,19 +79,18 @@ def login_post():
     user_db = usuariosdb.find_one({"Correo_Electronico": email})
     
     if user_db is None or user_db["Contrasena"] != password:
-        return 'Correo electrónico o contraseña incorrectos'
+        return jsonify({'success': False, 'message': 'Correo electrónico o contraseña incorrectos'}), 401
     
     user = User()
     user.id = email
     user.es_admin = user_db.get("Admin", False)
     login_user(user)
-    return redirect(url_for('inicio'))
+    return jsonify({'success': True, 'redirect_url': url_for('inicio')})
 
 @app.route('/logout')
-@login_required
 def logout():
     logout_user()
-    return 'Has cerrado sesión'  
+    return redirect(url_for('login_get'))
 
 @app.route('/protected')
 @login_required
@@ -117,6 +115,7 @@ def descripcion(producto_id):
 
     if producto is None:
         return 'Producto no encontrado', 404
+    print(producto)
 
     return render_template('descripcion.html', producto=producto, comentarios=comentarios)
 
@@ -255,11 +254,19 @@ def actualizar_mercancia_post():
                 {"$set": {"Cantidad": nueva_cantidad}}
             )
 
-            return 'Cantidad actualizada exitosamente', 200
+            return jsonify({'status': 'success', 'message': 'Cantidad actualizada exitosamente'}), 200
         else:
-            return 'Producto no encontrado', 404
+            return jsonify({'status': 'error', 'message': 'Producto no encontrado'}), 404
     else:
-        return 'No tienes permiso para acceder a esta página', 403
+        return jsonify({'status': 'error', 'message': 'No tienes permiso para acceder a esta página'}), 403
+
+@app.route('/gestionar_mercancia', methods=['GET'])
+@login_required
+def gestionar_mercancia():
+    if current_user.es_admin:
+        return render_template('gestionar_mercancia.html')
+    else:
+        return 'No tienes permiso para acceder a esta página'
 
 @app.route('/agregar_mercancia_post', methods=['POST'])
 @login_required
@@ -287,17 +294,9 @@ def agregar_mercancia_post():
             "url_producto": url_producto
         })
 
-        return 'La mercancía ha sido agregada exitosamente'
+        return jsonify({'status': 'success', 'message': 'La mercancía ha sido agregada exitosamente.'}), 200
     else:
-        return 'No tienes permiso para acceder a esta página'
-
-@app.route('/eliminar_mercancia', methods=['GET'])
-@login_required
-def eliminar_mercancia():
-    if current_user.es_admin:
-        return render_template('eliminar_mercancia.html')
-    else:
-        return 'No tienes permiso para acceder a esta página'
+        return jsonify({'status': 'error', 'message': 'No tienes permiso para acceder a esta página.'}), 403
 
 @app.route('/eliminar_mercancia_post', methods=['POST'])
 @login_required
@@ -306,17 +305,9 @@ def eliminar_mercancia_post():
         codigo_producto = request.form['codigo_producto']
         productodb.delete_one({"_id": int(codigo_producto)})
 
-        return 'El producto ha sido eliminado exitosamente'
+        return jsonify({'status': 'success', 'message': 'El producto ha sido eliminado exitosamente.'}), 200
     else:
-        return 'No tienes permiso para acceder a esta página'
-
-@app.route('/gestionar_mercancia', methods=['GET'])
-@login_required
-def gestionar_mercancia():
-    if current_user.es_admin:
-        return render_template('gestionar_mercancia.html')
-    else:
-        return 'No tienes permiso para acceder a esta página'
+        return jsonify({'status': 'error', 'message': 'No tienes permiso para acceder a esta página.'}), 403
 
 @app.route('/gestionar_descuentos', methods=['GET'])
 @login_required
@@ -325,7 +316,6 @@ def gestionar_descuentos():
         return render_template('gestionar_descuentos.html')
     else:
         return 'No tienes permiso para acceder a esta página'
-
 
 @app.route('/gestionar_descuentos_post', methods=['POST'])
 @login_required
@@ -346,14 +336,13 @@ def gestionar_descuentos_post():
                         {"_id": int(codigo_producto)},
                         {"$set": {"Precio_Original": precio_producto}}
                     )
-
                 nuevo_precio = precio_producto * (1 - porcentaje_descuento / 100)
-            
+
             elif accion == 'quitar':
                 if 'Precio_Original' in producto:
                     nuevo_precio = producto["Precio_Original"]
                 else:
-                    return 'No hay descuento aplicado previamente para quitar', 400
+                    return jsonify({'status': 'error', 'message': 'No hay descuento aplicado previamente para quitar'}), 400
 
             productodb.update_one(
                 {"_id": int(codigo_producto)},
@@ -366,11 +355,11 @@ def gestionar_descuentos_post():
                     {"$unset": {"Precio_Original": ""}}
                 )
 
-            return 'El descuento ha sido gestionado exitosamente', 200
+            return jsonify({'status': 'success', 'message': 'El descuento ha sido gestionado exitosamente'}), 200
         else:
-            return 'Producto no encontrado', 404
+            return jsonify({'status': 'error', 'message': 'Producto no encontrado'}), 404
     else:
-        return 'No tienes permiso para acceder a esta página', 403
+        return jsonify({'status': 'error', 'message': 'No tienes permiso para acceder a esta página'}), 403
 
 @app.route('/ver_stock', methods=['GET'])
 @login_required

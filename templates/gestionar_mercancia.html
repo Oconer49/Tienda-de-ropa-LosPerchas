@@ -5,6 +5,36 @@
     <title>Gestionar Mercancía</title>
     <link rel="stylesheet" href="/static/styles.css">
     <link rel="icon" href="/static/imagenes/Logo.png">
+    <link rel="icon" href="https://i.postimg.cc/Y0hLQQmm/Logo.png">
+    <script>
+        async function agregarMercancia(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const response = await fetch('/agregar_mercancia_post', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            alert(data.message);
+        }
+
+        async function eliminarMercancia(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const response = await fetch('/eliminar_mercancia_post', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            alert(data.message);
+        }
+    </script>
 </head>
 <body>
     <h1>Gestionar Mercancía</h1>
@@ -14,7 +44,7 @@
             <span class="slider"></span>
             <div class="flip-card__inner">
                 <div class="flip-card__Agregar">
-                    <form action="/agregar_mercancia_post" method="post">
+                    <form onsubmit="agregarMercancia(event)">
                         <h2>Agregar Mercancía</h2>
                         <label for="nombre_producto">Nombre del Producto</label>
                         <input type="text" id="nombre_producto" name="nombre_producto" required><br>
@@ -44,7 +74,7 @@
                     </form>
                 </div>
                 <div class="flip-card_eliminar">
-                    <form action="/eliminar_mercancia_post" method="post">
+                    <form onsubmit="eliminarMercancia(event)">
                         <h2>Eliminar Mercancía</h2>
                         <label for="codigo_producto">Código del Producto</label>
                         <input type="text" id="codigo_producto" name="codigo_producto" required><br>
